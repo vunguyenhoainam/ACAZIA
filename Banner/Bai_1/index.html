@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .banner{
+            position: relative;
+        }
+        img{
+            position: absolute;
+        }
+        .text_2{
+            left: 138px;
+        }
+        .text_3{
+            left: 138px;
+        }
+        .hidden{
+            opacity: 0;
+        }
+    </style>
+    <title>Banner</title>
+</head>
+<body>
+    <div class="banner">
+        <img class="background" src="./images/Background.jpg" alt="" width="300" height="250" style="width: 300px; height: 250px;">
+        <img class="logo" src="./images/logo.png" alt="" width="300" height="250" style="width: 300px; height: 250px;">
+        <img src="./images/welcome.png" alt="" class="hidden welcome">
+        <img src="./images/1.png" alt="" class="hidden text_1">
+        <img src="./images/2.png" alt="" class="hidden text_2">
+        <img src="./images/3.png" alt="" class="hidden text_3">
+        <img src="./images/4.png" alt="" class="hidden text_4">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script>
+        var tl = gsap.timeline({repeat: 2, repeatDelay: 2});
+            tl.to(".welcome", {duration: 1, opacity: 1, delay:1})
+                .to(".welcome", {duration: 1, opacity: 0, delay:1})
+                    .to(".text_1", {duration: 1, opacity: 1,})
+                        .fromTo(".text_2",{top:-100} ,{duration: 1, opacity: 1, top:0, delay:0.5})
+                            .to(".text_2", {duration: 1, opacity: 0})
+                                .fromTo(".text_3",{top:-100} ,{duration: 1, opacity: 1,top: 0, delay:0.5})
+                                    .to(".text_1", {duration: 1, opacity: 0, delay:1},"first")
+                                        .to(".text_3", {duration: 1, opacity: 0, delay:1},"first")
+                                            .to(".text_4", {duration: 1, opacity: 1})
+
+    </script>
+</body>
+</html>
+

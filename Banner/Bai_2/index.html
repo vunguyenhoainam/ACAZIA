@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Bai_2</title>
+    <meta name="ad.size" content="width=300,height=250" />
+    <style type="text/css" media="screen">
+        body {
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .smooth {
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            -ms-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        #ad img,
+        #banner img,
+        #banner svg {
+            position: absolute;
+            border: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        #ad div,
+        #banner div {
+            position: absolute;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        #ad,
+        #banner {
+            position: absolute;
+            width: 300px;
+            height: 250px;
+            overflow: hidden;
+            margin: 0 auto;
+            z-index: 0;
+        }
+
+        #ad {
+            border-width: 0;
+            border-style: solid;
+            border-color: #d2d9db;
+            background-color: rgba(255, 255, 255, 1);
+            background-image: url('loading.gif');
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #banner {
+            opacity: 0;
+            background-color: rgba(255, 255, 255, 1);
+            background-position: center;
+            background-repeat: no-repeat;
+            -webkit-background-size: auto;
+            background-size: auto;
+        }
+
+        .full {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0);
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .border {
+            border-width: 1px;
+            border-style: solid;
+            border-color: #000000;
+        }
+
+        .clickTag {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        /* css */
+        #div-cta-hover{
+            position: absolute;
+            background:rgba(0,0,0,0);
+            width: 126px;
+            height: 28px;
+            bottom: 33px;
+            left: 87px;
+            display: none;
+            cursor:pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        !function(n){n.preloadImages=function(n,o){
+                window.IMAGES_CACHE={};
+                var e,t,i=n.length;
+                if(0===n.length) return void(o&&"function"==typeof o&&o());
+                for(;e=n.pop();)t=new Image,t.onload=function(n){console.log("Loading image: ",n),window.IMAGES_CACHE[n]=this,i--,0===i&&(console.log("All images are ready..."),o&&"function"==typeof o&&o())}.bind(t,e),t.src=e},n.loadScripts=function(n,o){var e,t,i=n.length;
+                if(0===n.length) return void(o&&"function"==typeof o&&o());
+                for(;e=n.pop();)t=document.createElement("script"),t.defer=!0,t.onload=function(){i--,0===i&&(console.log("All scripts are ready..."),o&&"function"==typeof o&&o())},t.src=e,document.getElementsByTagName("head")[0].appendChild(t)}}(window);
+    </script>
+    <script type="text/javascript">
+        var clickTag = ""; 
+    </script>
+</head>
+<body>
+    <div id="ad">
+        <div id="banner" class="banner">
+                <img id="bg" src="img/bg.jpg">
+                <img id="txt1" class="hidden" src="img/txt1.png">
+
+                <img id="bg2" class="hidden" src="img/bg2.jpg">
+                <img id="prod" class="hidden" src="img/prod.png">
+                <img id="txt2" class="hidden" src="img/txt2.png">
+
+                <img id="txt3" class="hidden" src="img/txt3.png">
+
+                <img id="logo-hana" class="hidden" src="img/logo-hana.png">
+                <img id="logo" class="hidden" src="img/logo.png">
+                <img id="cta" class="hidden" src="img/cta.png">
+                <img id="cta-hover" class="hidden" src="img/cta-hover.png">
+        </div>
+        <div id="border" class="border full"></div>
+        <a href="javascript:void(window.open(window.clickTag));" id="clickTag" class="clickTag full"></a>
+        <a href="javascript:void(window.open(window.clickTag));" id="clickTag" class="clickTag full"><div id="div-cta-hover"></div></a>
+    </div>
+    <script type="text/javascript">
+        var $banner = ((function() {
+            // jQuery Fake
+            var $ = function(slt) { return document.querySelector(slt); }
+            var timers = 0;
+            var Tween;
+            var ctaHover = $('#div-cta-hover');
+            var loop = 0;
+
+            function startAds() {
+                loadScripts([
+                    'https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.19.1_92cf05aba6ca4ea5cbc62b5a7cb924e3_min.js',
+                ], loadAssets);
+            }
+
+            function loadAssets() {
+                preloadImages([
+                    "img/bg.jpg",
+                    "img/bg2.jpg",
+                    'img/cta-hover.png',
+                    'img/cta.png',
+                    'img/logo-hana.png',
+                    'img/logo.png',
+                    'img/prod.png',
+                    'img/txt1.png',
+                    'img/txt2.png',
+                    'img/txt3.png'
+                ], mainDOM);
+            }
+
+            function mainDOM() {
+                var ad = $('#ad'),
+                    banner = $('#banner');
+
+                addListeners();
+
+                TweenLite.to([banner], 0.15, { autoAlpha: 1, onComplete: function(){
+                    mainFunc();
+                } });  
+            }
+
+            function addListeners(){
+                ctaHover.addEventListener("mouseover", switchCtaOn, false);
+                ctaHover.addEventListener("mouseout", switchCtaOff, false);
+            }
+
+            function switchCtaOn(){
+                TweenLite.to("#cta-hover", 0.5, { autoAlpha: 1 });    
+            }
+
+            function switchCtaOff(){
+                TweenLite.to("#cta-hover", 0.5, { autoAlpha: 0 });  
+            }
+
+
+            function mainFunc() {
+                console.info('Animation Starting ...!');
+
+                Tween = new TimelineLite({
+                    // onStart: _onStart,
+                    // onUpdate: _onUpdate,
+                    onComplete: _onComplete
+                });
+
+                Tween.add(TweenLite.to("#txt1", 1, { autoAlpha: 1, ease: Power0.easeNone }), timers);
+                timers += 1;
+                Tween.add(TweenLite.to("#txt1", 1, { autoAlpha: 0, ease: Power0.easeNone }), timers);
+                timers += 1;
+                Tween.add(TweenLite.to(["#prod","#bg2","#txt2"], 1, { autoAlpha: 1, ease: Power0.easeNone }), timers);
+                timers += 2;
+                Tween.add(TweenLite.to(["#prod","#light","#txt2"], 1, { autoAlpha: 0 }), timers);
+                timers += 1;
+                Tween.add(TweenLite.to(["#txt3"], 1, { autoAlpha: 1, ease: Power0.easeNone }), timers);
+                timers += 2;
+                Tween.add(TweenLite.to(["#txt3","#bg2"], 1, { autoAlpha: 0, ease: Power0.easeNone }), timers);
+                timers += 1;
+                Tween.add(TweenLite.to("#logo-hana", 0.5, { autoAlpha: 1, ease: Power0.easeNone }), timers);
+                timers += 0.5;
+                Tween.add(TweenLite.to("#logo", 0.5, { autoAlpha: 1, ease: Power0.easeNone }), timers);
+                timers += 0.5;
+                Tween.add(TweenLite.to("#cta", 0.5, { autoAlpha: 1, ease: Power0.easeNone, onComplete:function(){
+                    $('#div-cta-hover').style.display = "block";
+                } }), timers);
+            }
+
+            // function _onStart() {}
+            // function _onUpdate() {}
+            function _onComplete() {
+                if (loop < 2) {
+                        setTimeout(function () { 
+                        Tween.restart();
+                    }, 1000);
+                    loop ++;
+                } else {
+                    return;
+                }
+            }
+            return startAds;
+        })());
+
+        window.addEventListener("load", $banner);
+    </script>
+</body>
+</html>
